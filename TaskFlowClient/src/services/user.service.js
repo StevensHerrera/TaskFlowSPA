@@ -22,6 +22,14 @@ export async function getUsers() {
   return await response.json();
 }
 
+export async function getUserById(id) {
+  const response = await fetch(`http://localhost:3000/users/${id}`);
+  if (!response.ok) {
+    throw new Error("Error al obtener el usuario");
+  }
+  return await response.json();
+}
+
 export async function getUserByEmail(email) {
   const response = await fetch(`http://localhost:3000/users?email=${email}`);
   if (!response.ok) {

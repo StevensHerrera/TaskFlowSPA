@@ -2,7 +2,7 @@
   "users": [
     {
       "name": "Isaac",
-      "lastname": "Guzman",
+      "lastname": "Mora",
       "email": "guzman@gmail.com",
       "password": "guz.123",
       "roles": [
@@ -49,6 +49,16 @@
         "USER"
       ],
       "id": "-VVdiCnyGT8"
+    },
+    {
+      "name": "Jorge",
+      "lastname": "Curioso",
+      "email": "curioso@hotmail.com",
+      "password": "123.145",
+      "roles": [
+        "USER"
+      ],
+      "id": "ao9-Lqoxsb4"
     }
   ],
   "tasks": [
@@ -61,7 +71,7 @@
       "id": "P8mDC7JD0-w"
     },
     {
-      "title": "Culiarme al isaac",
+      "title": "Hacer todas las actividades del moodle",
       "description": "Mañana despues de la prueba de desempeño",
       "status": "En progreso",
       "date": "2026-06-05",
@@ -69,12 +79,20 @@
       "id": "JwNmEYrjyOM"
     },
     {
-      "title": "Terminar esta monda",
+      "title": "Terminar el proyecto",
       "description": "Ya mismo",
       "status": "Pendiente",
       "date": "2026-06-04",
       "userId": "zbqpFQ-bdb4",
       "id": "atMzbx3JiZU"
+    },
+    {
+      "title": "Tomar Agua",
+      "description": "Tomar agua todo los dias",
+      "status": "Pendiente",
+      "date": "",
+      "userId": "ao9-Lqoxsb4",
+      "id": "i-VLA468tHM"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
