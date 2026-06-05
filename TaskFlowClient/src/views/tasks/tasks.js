@@ -5,13 +5,14 @@ import {
   getTasks,
   getTasksByUserId,
 } from "../../services/task.service";
+import { getUsers } from "../../services/user.service";
 
 function navigateTo(path) {
   window.history.pushState({}, "", path);
   window.dispatchEvent(new PopStateEvent("popstate"));
 }
 
-function renderTaskCard(task) {
+function renderTaskCard(task, userName) {
   return `
     <article class="rounded-3xl border border-blue-100 bg-white p-6 shadow-lg shadow-blue-50">
       <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
@@ -20,6 +21,7 @@ function renderTaskCard(task) {
           <h2 class="mt-2 text-2xl font-bold text-slate-900">${task.title}</h2>
           <p class="mt-3 max-w-2xl text-slate-600">${task.description || "Sin descripcion"}</p>
           ${task.date ? `<p class="mt-2 text-sm text-slate-500">Fecha limite: ${task.date}</p>` : ""}
+          ${userName ? `<p class="mt-1 text-sm text-slate-500">Creada por: ${userName}</p>` : ""}
         </div>
         <div class="flex gap-3">
           <a class="rounded-full border border-blue-200 px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50" href="/tasks/edit/${task.id}">Editar</a>
@@ -75,6 +77,12 @@ export async function setupTasksView() {
       ? await getTasks()
       : await getTasksByUserId(session.id);
 
+    let usersMap = {};
+    if (isAdmin) {
+      const users = await getUsers();
+      usersMap = Object.fromEntries(users.map(u => [u.id, `${u.name} ${u.lastname}`]));
+    }
+
     if (tasks.length === 0) {
       list.innerHTML = `
         <p class="rounded-3xl border border-blue-100 bg-white p-6 text-slate-600">
@@ -83,7 +91,7 @@ export async function setupTasksView() {
       return;
     }
 
-    list.innerHTML = tasks.map(renderTaskCard).join("");
+    list.innerHTML = tasks.map(task => renderTaskCard(task, isAdmin ? usersMap[task.userId] : null)).join("");
 
     list.querySelectorAll("[data-delete-task]").forEach((button) => {
       button.addEventListener("click", async () => {

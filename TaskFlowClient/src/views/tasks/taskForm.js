@@ -4,6 +4,7 @@ import {
   getTaskById,
   updateTask,
 } from "../../services/task.service";
+import { getUsers } from "../../services/user.service";
 
 function navigateTo(path) {
   window.history.pushState({}, "", path);
@@ -17,6 +18,8 @@ function getTaskIdFromPath() {
 
 export function renderTaskForm() {
   const isEdit = Boolean(getTaskIdFromPath());
+  const session = getSession();
+  const admin = session?.roles?.includes("ADMIN");
 
   return `
   <header class="border-b border-blue-100 bg-white/90 backdrop-blur">
@@ -62,6 +65,14 @@ export function renderTaskForm() {
             </div>
           </div>
 
+          ${admin ? `
+          <div>
+            <label class="mb-2 block text-sm font-medium text-slate-700" for="assigned-user">Asignar a</label>
+            <select id="assigned-user" class="w-full rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-slate-900 focus:border-blue-400 focus:outline-none">
+              <option value="">Seleccionar usuario...</option>
+            </select>
+          </div>` : ""}
+
           <div class="flex flex-col gap-3 pt-2 sm:flex-row">
             <button type="submit" class="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-500">Guardar tarea</button>
             <a class="inline-flex items-center justify-center rounded-2xl border border-blue-200 bg-white px-5 py-3 text-sm font-bold text-blue-700 hover:bg-blue-50" href="/tasks">Cancelar</a>
@@ -78,7 +89,9 @@ export async function setupTasksFormView() {
   const description = document.getElementById("description");
   const status = document.getElementById("status");
   const date = document.getElementById("date");
+  const userSelect = document.getElementById("assigned-user");
   const session = getSession();
+  const isAdmin = session?.roles?.includes("ADMIN");
 
   if (!form || !title || !description || !status || !date || !session) {
     return;
@@ -87,7 +100,6 @@ export async function setupTasksFormView() {
   if (taskId) {
     try {
       const task = await getTaskById(taskId);
-      const isAdmin = session.roles?.includes("ADMIN");
 
       if (!isAdmin && task.userId !== session.id) {
         alert("No tienes permiso para editar esta tarea.");
@@ -106,6 +118,23 @@ export async function setupTasksFormView() {
     }
   }
 
+  if (isAdmin && userSelect) {
+    try {
+      const users = await getUsers();
+      const options = users.map(u =>
+        `<option value="${u.id}">${u.name} ${u.lastname}</option>`
+      ).join("");
+      userSelect.innerHTML = `<option value="">Seleccionar usuario...</option>${options}`;
+
+      if (taskId) {
+        const task = await getTaskById(taskId);
+        userSelect.value = task.userId;
+      }
+    } catch (error) {
+      console.error("Error al cargar usuarios", error);
+    }
+  }
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -121,7 +150,7 @@ export async function setupTasksFormView() {
       description: description.value.trim(),
       status: status.value,
       date: date.value,
-      userId: session.id,
+      userId: userSelect ? userSelect.value || session.id : session.id,
     };
 
     try {

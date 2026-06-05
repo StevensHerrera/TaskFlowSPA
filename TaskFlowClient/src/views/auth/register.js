@@ -1,4 +1,3 @@
-import { saveSession } from "../../services/auth.service";
 import { createUser, getUserByEmail } from "../../services/user.service";
 
 function navigateTo(path) {
@@ -103,10 +102,10 @@ export function setupRegister() {
         roles: [role.value],
       };
 
-      const createdUser = await createUser(newUser);
+      await createUser(newUser);
 
-      saveSession(createdUser);
-      navigateTo("/dashboard");
+      alert("Usuario registrado exitosamente. Inicia sesion.");
+      navigateTo("/login");
     } catch (error) {
       console.error(error);
       alert(error.message || "Ocurrio un error al registrar el usuario");
