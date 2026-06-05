@@ -39,6 +39,16 @@
         "USER"
       ],
       "id": "zbqpFQ-bdb4"
+    },
+    {
+      "name": "Juan",
+      "lastname": "Acosta",
+      "email": "acosta@gmail.com",
+      "password": "123.123",
+      "roles": [
+        "USER"
+      ],
+      "id": "-VVdiCnyGT8"
     }
   ],
   "tasks": [
@@ -52,7 +62,7 @@
     },
     {
       "title": "Culiarme al isaac",
-      "description": "Mañana despues de la prueba",
+      "description": "Mañana despues de la prueba de desempeño",
       "status": "En progreso",
       "date": "2026-06-05",
       "userId": "TWSNqoveNLU",
