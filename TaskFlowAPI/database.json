@@ -1,0 +1,71 @@
+{
+  "users": [
+    {
+      "name": "Isaac",
+      "lastname": "Guzman",
+      "email": "guzman@gmail.com",
+      "password": "guz.123",
+      "roles": [
+        "ADMIN"
+      ],
+      "id": "BSbvBo-vzZ4"
+    },
+    {
+      "name": "stevens",
+      "lastname": "Herrera",
+      "email": "stevens@gmail.com",
+      "password": "ste.123",
+      "roles": [
+        "ADMIN"
+      ],
+      "id": "TWSNqoveNLU"
+    },
+    {
+      "name": "test",
+      "lastname": "registe",
+      "email": "register@gmail.com",
+      "password": "register.123",
+      "roles": [
+        "USER"
+      ],
+      "id": "1FjSfzNyDlM"
+    },
+    {
+      "name": "Ana",
+      "lastname": "Torres",
+      "email": "torres@gmail.com",
+      "password": "123456",
+      "roles": [
+        "USER"
+      ],
+      "id": "zbqpFQ-bdb4"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "comer bacano",
+      "description": "comer comida saludable",
+      "status": "Pendiente",
+      "date": "2026-06-04",
+      "userId": "BSbvBo-vzZ4",
+      "id": "P8mDC7JD0-w"
+    },
+    {
+      "title": "Culiarme al isaac",
+      "description": "Mañana despues de la prueba",
+      "status": "En progreso",
+      "date": "2026-06-05",
+      "userId": "TWSNqoveNLU",
+      "id": "JwNmEYrjyOM"
+    },
+    {
+      "title": "Terminar esta monda",
+      "description": "Ya mismo",
+      "status": "Pendiente",
+      "date": "2026-06-04",
+      "userId": "zbqpFQ-bdb4",
+      "id": "atMzbx3JiZU"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
