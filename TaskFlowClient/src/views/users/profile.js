@@ -1,5 +1,7 @@
 import { getSession, saveSession, clearSession } from "../../services/auth.service";
 import { getUserById, getUserByEmail, updateUser, deleteUser } from "../../services/user.service";
+import { hashPassword } from "../../utils/crypto";
+import { success } from "../../utils/alerts";
 
 function navigateTo(path) {
   window.history.pushState({}, "", path);
@@ -101,12 +103,12 @@ export async function setupProfileView() {
         name: newName,
         lastname: newLastname,
         email: newEmail,
-        password: newPassword || currentUser.password,
+        password: newPassword ? await hashPassword(newPassword) : currentUser.password,
       };
 
       await updateUser(session.id, updatedUser);
       saveSession(updatedUser);
-      alert("Perfil actualizado exitosamente.");
+      success("Perfil actualizado exitosamente.");
     } catch (error) {
       alert(error.message || "No se pudo actualizar el perfil");
     }

@@ -1,4 +1,6 @@
 import { createUser, getUserByEmail } from "../../services/user.service";
+import { hashPassword } from "../../utils/crypto";
+import { success } from "../../utils/alerts";
 
 function navigateTo(path) {
   window.history.pushState({}, "", path);
@@ -94,17 +96,19 @@ export function setupRegister() {
         return;
       }
 
+      const hashedPassword = await hashPassword(password.value);
+
       const newUser = {
         name: nombre.value.trim(),
         lastname: apellido.value.trim(),
         email: normalizedEmail,
-        password: password.value,
+        password: hashedPassword,
         roles: [role.value],
       };
 
       await createUser(newUser);
 
-      alert("Usuario registrado exitosamente. Inicia sesion.");
+      success("Usuario registrado exitosamente. Inicia sesion.");
       navigateTo("/login");
     } catch (error) {
       console.error(error);

@@ -1,4 +1,5 @@
 import { clearSession, getSession, isAdmin } from "../services/auth.service";
+import { success } from "../utils/alerts";
 
 function navigateTo(path) {
   window.history.pushState({}, "", path);
@@ -43,6 +44,7 @@ export function setupAppNav() {
   logoutBtn.addEventListener("click", (event) => {
     event.preventDefault();
     clearSession();
+    success("Sesion cerrada correctamente.");
     navigateTo("/login");
   });
 }

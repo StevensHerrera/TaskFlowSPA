@@ -1,6 +1,5 @@
 import { getUserByEmail } from "./user.service";
-
-
+import { comparePassword } from "../utils/crypto";
 
 const SessionKeys = "SESSION_ACTUAL"
 
@@ -61,7 +60,9 @@ export async function loginUser({ email, password }) {
         throw new Error("No existe un usuario con este correo.");
     }
 
-    if (user.password !== trimmedPassword) {
+    const valid = await comparePassword(trimmedPassword, user.password);
+
+    if (!valid) {
         throw new Error("Contraseña incorrecta.");
     }
 

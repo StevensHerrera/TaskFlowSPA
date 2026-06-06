@@ -1,8 +1,9 @@
 import { renderAppNav, setupAppNav } from "../../components/appNav";
 import { getSession, isAdmin, saveSession } from "../../services/auth.service";
-import { getUsers, updateUser } from "../../services/user.service";
+import { getUsers, updateUser, deleteUser } from "../../services/user.service";
+import { success, confirmDelete } from "../../utils/alerts";
 
-function renderUserCard(user) {
+function renderUserCard(user, isCurrentUser) {
   const currentRole = user.roles?.[0] ?? "USER";
   const fullName = `${user.name} ${user.lastname}`.trim();
 
@@ -22,6 +23,7 @@ function renderUserCard(user) {
           <button type="button" data-save-role="${user.id}" class="rounded-full border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-700 hover:bg-white">
             Guardar rol
           </button>
+          ${isCurrentUser ? "" : `<button type="button" data-delete-user="${user.id}" class="rounded-full border border-red-200 px-3 py-1 text-xs font-semibold text-red-700 hover:bg-red-50">Eliminar</button>`}
         </div>
       </div>
     </div>`;
@@ -81,7 +83,7 @@ export async function setupAdminView() {
       return;
     }
 
-    usersList.innerHTML = users.map(renderUserCard).join("");
+    usersList.innerHTML = users.map(u => renderUserCard(u, u.id === session.id)).join("");
 
     usersList.querySelectorAll("[data-save-role]").forEach((button) => {
       button.addEventListener("click", async () => {
@@ -115,9 +117,28 @@ export async function setupAdminView() {
             saveSession({ ...session, roles: [newRole] });
           }
 
-          alert("Rol actualizado correctamente");
+          success("Rol actualizado correctamente.");
         } catch (error) {
           alert(error.message || "No se pudo actualizar el rol");
+        }
+      });
+    });
+
+    usersList.querySelectorAll("[data-delete-user]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const userId = button.dataset.deleteUser;
+
+        if (!userId || !(await confirmDelete("Estas seguro de eliminar este usuario?"))) {
+          return;
+        }
+
+        try {
+          await deleteUser(userId);
+          success("Usuario eliminado correctamente.");
+          button.closest("[data-user-id]")?.remove();
+          usersCount.textContent = String(usersList.children.length);
+        } catch (error) {
+          alert(error.message || "No se pudo eliminar el usuario");
         }
       });
     });

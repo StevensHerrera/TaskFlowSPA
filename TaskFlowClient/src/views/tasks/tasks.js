@@ -6,6 +6,7 @@ import {
   getTasksByUserId,
 } from "../../services/task.service";
 import { getUsers } from "../../services/user.service";
+import { confirmDelete } from "../../utils/alerts";
 
 function navigateTo(path) {
   window.history.pushState({}, "", path);
@@ -97,7 +98,7 @@ export async function setupTasksView() {
       button.addEventListener("click", async () => {
         const taskId = button.dataset.deleteTask;
 
-        if (!taskId || !confirm("Deseas eliminar esta tarea?")) {
+        if (!taskId || !(await confirmDelete("Deseas eliminar esta tarea?"))) {
           return;
         }
 
