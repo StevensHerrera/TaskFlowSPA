@@ -11,16 +11,6 @@
       "id": "BSbvBo-vzZ4"
     },
     {
-      "name": "stevens",
-      "lastname": "Herrera",
-      "email": "stevens@gmail.com",
-      "password": "ste.123",
-      "roles": [
-        "ADMIN"
-      ],
-      "id": "TWSNqoveNLU"
-    },
-    {
       "name": "test",
       "lastname": "registe",
       "email": "register@gmail.com",
@@ -29,16 +19,6 @@
         "USER"
       ],
       "id": "1FjSfzNyDlM"
-    },
-    {
-      "name": "Ana",
-      "lastname": "Torres",
-      "email": "torres@gmail.com",
-      "password": "123456",
-      "roles": [
-        "USER"
-      ],
-      "id": "zbqpFQ-bdb4"
     },
     {
       "name": "Juan",
@@ -59,12 +39,32 @@
         "USER"
       ],
       "id": "ao9-Lqoxsb4"
+    },
+    {
+      "name": "lyan",
+      "lastname": "Leon",
+      "email": "lyan@gmail.com",
+      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+      "roles": [
+        "USER"
+      ],
+      "id": "-_-jcpIOpCk"
+    },
+    {
+      "name": "Eduardo",
+      "lastname": "Beleño",
+      "email": "beleno@gmail.com",
+      "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+      "roles": [
+        "USER"
+      ],
+      "id": "gC2FAVVPZoA"
     }
   ],
   "tasks": [
     {
       "title": "comer bacano",
-      "description": "comer comida saludable",
+      "description": "comer comida saludable todos los dias",
       "status": "Pendiente",
       "date": "2026-06-04",
       "userId": "BSbvBo-vzZ4",
@@ -75,7 +75,7 @@
       "description": "Mañana despues de la prueba de desempeño",
       "status": "En progreso",
       "date": "2026-06-05",
-      "userId": "TWSNqoveNLU",
+      "userId": null,
       "id": "JwNmEYrjyOM"
     },
     {
@@ -83,16 +83,8 @@
       "description": "Ya mismo",
       "status": "Pendiente",
       "date": "2026-06-04",
-      "userId": "zbqpFQ-bdb4",
+      "userId": null,
       "id": "atMzbx3JiZU"
-    },
-    {
-      "title": "Tomar Agua",
-      "description": "Tomar agua todo los dias",
-      "status": "Pendiente",
-      "date": "",
-      "userId": "ao9-Lqoxsb4",
-      "id": "i-VLA468tHM"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
